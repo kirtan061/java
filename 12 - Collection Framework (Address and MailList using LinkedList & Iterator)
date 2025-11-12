@@ -1,0 +1,61 @@
+import java.util.*;
+
+// Class to store address details
+class Address {
+    String name;
+    String city;
+    String state;
+
+    // Constructor
+    Address(String name, String city, String state) {
+        this.name = name;
+        this.city = city;
+        this.state = state;
+    }
+
+    // toString method to display the address nicely
+    public String toString() {
+        return name + ", " + city + ", " + state;
+    }
+}
+
+// Main class
+public class MailList {
+    public static void main(String[] args) {
+        // Create a LinkedList to store Address objects
+        LinkedList<Address> list = new LinkedList<>();
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter how many addresses you want to add: ");
+        int n = sc.nextInt();
+        sc.nextLine(); // consume newline
+
+        // Add addresses from user input
+        for (int i = 0; i < n; i++) {
+            System.out.println("\nEnter details for Address " + (i + 1) + ":");
+
+            System.out.print("Enter name: ");
+            String name = sc.nextLine();
+
+            System.out.print("Enter city: ");
+            String city = sc.nextLine();
+
+            System.out.print("Enter state: ");
+            String state = sc.nextLine();
+
+            // Add to linked list
+            list.add(new Address(name, city, state));
+        }
+
+        // Display the contents using Iterator
+        System.out.println("\nMailing List:");
+        Iterator<Address> itr = list.iterator();
+        while (itr.hasNext()) {
+            Address addr = itr.next();
+            System.out.println(addr);
+        }
+
+        sc.close();
+    }
+}
