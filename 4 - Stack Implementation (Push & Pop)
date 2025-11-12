@@ -1,0 +1,76 @@
+import java.util.Scanner;
+
+public class Stack {
+    private int[] stack = new int[10];  // Stack can hold 10 values
+    private int top = -1;               // Initially, stack is empty
+
+    // Push method to add element
+    public void push(int value) {
+        if (top == 9) {
+            System.out.println("Stack Overflow! Cannot push " + value);
+        } else {
+            stack[++top] = value;
+            System.out.println(value + " pushed into the stack.");
+        }
+    }
+
+    // Pop method to remove top element
+    public void pop() {
+        if (top == -1) {
+            System.out.println("Stack Underflow! No element to pop.");
+        } else {
+            int value = stack[top--];
+            System.out.println(value + " popped from the stack.");
+        }
+    }
+
+    // Display method to show all elements
+    public void display() {
+        if (top == -1) {
+            System.out.println("Stack is empty.");
+        } else {
+            System.out.println("Current Stack elements (top to bottom):");
+            for (int i = top; i >= 0; i--) {
+                System.out.println(stack[i]);
+            }
+        }
+    }
+
+    // --- Main method ---
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Stack s = new Stack();
+        int choice;
+
+        while (true) {
+            System.out.println("\n====== STACK MENU ======");
+            System.out.println("1. Push");
+            System.out.println("2. Pop");
+            System.out.println("3. Display");
+            System.out.println("4. Exit");
+            System.out.print("Enter your choice: ");
+
+            choice = sc.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter value to push: ");
+                    int value = sc.nextInt();
+                    s.push(value);
+                    break;
+                case 2:
+                    s.pop();
+                    break;
+                case 3:
+                    s.display();
+                    break;
+                case 4:
+                    System.out.println("Exiting program. Goodbye!");
+                    sc.close();
+                    System.exit(0);
+                default:
+                    System.out.println("Invalid choice! Please try again.");
+            }
+        }
+    }
+}
