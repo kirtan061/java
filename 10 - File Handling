@@ -1,0 +1,73 @@
+import java.io.*;
+import java.util.*;
+import java.time.LocalDateTime;
+
+public class FileOperationsSimple {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int choice;
+
+        System.out.println("1. Convert string to UPPERCASE and store in file");
+        System.out.println("2. Write double value and date to file");
+        System.out.println("3. Delete a file or directory");
+        System.out.print("Enter your choice (1-3): ");
+        choice = sc.nextInt();
+        sc.nextLine(); // clear buffer
+
+        try {
+            switch (choice) {
+                case 1:
+                    // --- Task 1: Convert string to uppercase and store in file ---
+                    System.out.print("Enter a string: ");
+                    String text = sc.nextLine();
+                    text = text.toUpperCase();
+
+                    FileWriter fw1 = new FileWriter("uppercase.txt");
+                    fw1.write("Converted Text: " + text);
+                    fw1.close();
+
+                    System.out.println("String converted to uppercase and stored in uppercase.txt");
+                    break;
+
+                case 2:
+                    // --- Task 2: Write double value and date ---
+                    System.out.print("Enter a double value: ");
+                    double num = sc.nextDouble();
+
+                    LocalDateTime date = LocalDateTime.now();
+                    FileWriter fw2 = new FileWriter("double_date.txt");
+                    fw2.write("Double value: " + num + "\n");
+                    fw2.write("Date & Time: " + date);
+                    fw2.close();
+
+                    System.out.println("Double value and date stored in double_date.txt");
+                    break;
+
+                case 3:
+                    // --- Task 3: Delete file or directory ---
+                    System.out.print("Enter file or directory name to delete: ");
+                    String name = sc.nextLine();
+
+                    File file = new File(name);
+                    if (file.exists()) {
+                        if (file.delete()) {
+                            System.out.println("File/Directory deleted successfully.");
+                        } else {
+                            System.out.println("Unable to delete the file/directory.");
+                        }
+                    } else {
+                        System.out.println("File/Directory does not exist.");
+                    }
+                    break;
+
+                default:
+                    System.out.println("Invalid choice!");
+            }
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+
+        System.out.println("Program completed.");
+        sc.close();
+    }
+}
