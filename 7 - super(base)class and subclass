@@ -1,0 +1,50 @@
+import java.util.Scanner;
+
+// Base (Super) class
+class Base {
+    int x; // variable in base class
+
+    // Method to set value for x in base class
+    void setData(Scanner sc) {
+        System.out.print("Enter value of x in Base class: ");
+        x = sc.nextInt();
+    }
+
+    // Method to display base class x
+    void show() {
+        System.out.println("Value of x in Base class: " + x);
+    }
+}
+
+// Subclass
+class Sub extends Base {
+    int x; // variable in subclass (hides Base.x)
+
+    // Method to set value for x in subclass
+    void setData(Scanner sc) {
+        super.setData(sc); // set base class x first
+        System.out.print("Enter value of x in Subclass: ");
+        x = sc.nextInt();
+    }
+
+    // Method to display both variables
+    void show() {
+        System.out.println("\n--- Displaying Values ---");
+        System.out.println("Value of x in Subclass: " + x);
+        System.out.println("Value of x in Base(super)class : " + super.x);
+    }
+}
+
+// Main class (contains main method)
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        Sub obj = new Sub(); // create object of subclass
+
+        obj.setData(sc);     // get both values
+        obj.show();          // display both values
+
+        sc.close();
+    }
+}
