@@ -1,0 +1,32 @@
+import java.util.Scanner;
+
+public class DivisionProgram {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        try {
+            // Take input from the user
+            System.out.print("Enter first integer: ");
+            int num1 = Integer.parseInt(sc.nextLine());
+
+            System.out.print("Enter second integer: ");
+            int num2 = Integer.parseInt(sc.nextLine());
+
+            // Perform division
+            int result = num1 / num2;
+
+            // Display result
+            System.out.println("Division result: " + result);
+        }
+        catch (NumberFormatException e) {
+            System.out.println("Error: Please enter valid integer values.");
+        }
+        catch (ArithmeticException e) {
+            System.out.println("Error: Division by zero is not allowed.");
+        }
+        finally {
+            System.out.println("Program execution completed.");
+            sc.close();
+        }
+    }
+}
