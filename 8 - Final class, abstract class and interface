@@ -1,0 +1,119 @@
+import java.util.Scanner;
+
+// ===== Interface =====
+interface ShapeOperations {
+    void area();
+    void circumference();
+    void volume();
+}
+
+// ===== Abstract Class =====
+abstract class Shape implements ShapeOperations {
+    double radius, length, breadth, height;
+    final double PI = 3.14159; // constant
+
+    abstract void getData(Scanner sc);
+}
+
+// ===== Circle Class =====
+class Circle extends Shape {
+    void getData(Scanner sc) {
+        System.out.print("Enter radius of Circle: ");
+        radius = sc.nextDouble();
+    }
+
+    public void area() {
+        System.out.println("Area of Circle = " + (PI * radius * radius));
+    }
+
+    public void circumference() {
+        System.out.println("Circumference of Circle = " + (2 * PI * radius));
+    }
+
+    public void volume() {
+        System.out.println("Circle has no volume (2D shape).");
+    }
+}
+
+// ===== Rectangle Class =====
+class Rectangle extends Shape {
+    void getData(Scanner sc) {
+        System.out.print("Enter length of Rectangle: ");
+        length = sc.nextDouble();
+        System.out.print("Enter breadth of Rectangle: ");
+        breadth = sc.nextDouble();
+    }
+
+    public void area() {
+        System.out.println("Area of Rectangle = " + (length * breadth));
+    }
+
+    public void circumference() {
+        System.out.println("Perimeter of Rectangle = " + (2 * (length + breadth)));
+    }
+
+    public void volume() {
+        System.out.println("Rectangle has no volume (2D shape).");
+    }
+}
+
+// ===== Cylinder Class =====
+class Cylinder extends Shape {
+    void getData(Scanner sc) {
+        System.out.print("Enter radius of Cylinder: ");
+        radius = sc.nextDouble();
+        System.out.print("Enter height of Cylinder: ");
+        height = sc.nextDouble();
+    }
+
+    public void area() {
+        System.out.println("Surface Area of Cylinder = " + (2 * PI * radius * (radius + height)));
+    }
+
+    public void circumference() {
+        System.out.println("Circumference of Cylinder Base = " + (2 * PI * radius));
+    }
+
+    public void volume() {
+        System.out.println("Volume of Cylinder = " + (PI * radius * radius * height));
+    }
+}
+
+// ===== Final Class (Main Program) =====
+public final class ShapeCalculator {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Shape shape = null;
+
+        System.out.println("=== SHAPE CALCULATOR ===");
+        System.out.println("1. Circle");
+        System.out.println("2. Rectangle");
+        System.out.println("3. Cylinder");
+        System.out.print("Enter your choice: ");
+        int choice = sc.nextInt();
+
+        switch (choice) {
+            case 1:
+                shape = new Circle();
+                break;
+            case 2:
+                shape = new Rectangle();
+                break;
+            case 3:
+                shape = new Cylinder();
+                break;
+            default:
+                System.out.println("Invalid choice!");
+                sc.close();
+                return;
+        }
+
+        shape.getData(sc);
+        System.out.println("\n--- RESULTS ---");
+        shape.area();
+        shape.circumference();
+        shape.volume();
+
+        sc.close();
+    }
+}
