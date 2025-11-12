@@ -1,0 +1,42 @@
+import java.util.Scanner;
+
+public class AddFunction {
+    
+    // Method 1: accepts two integers
+    public void addfunc(int a, int b) {
+        int sum = a + b;
+        System.out.println("Sum of two integers: " + sum);
+    }
+
+    // Method 2: accepts two doubles (same name, different parameters)
+    public void addfunc(double a, double b) {
+        double sum = a + b;
+        System.out.println("Sum of two doubles: " + sum);
+    }
+
+    // Main method
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        AddFunction obj = new AddFunction();
+
+        // Input for integers
+        System.out.print("Enter first integer: ");
+        int x = sc.nextInt();
+        System.out.print("Enter second integer: ");
+        int y = sc.nextInt();
+
+        // Calling integer version
+        obj.addfunc(x, y);
+
+        // Input for doubles
+        System.out.print("\nEnter first double: ");
+        double p = sc.nextDouble();
+        System.out.print("Enter second double: ");
+        double q = sc.nextDouble();
+
+        // Calling double version
+        obj.addfunc(p, q);
+
+        sc.close();
+    }
+}
