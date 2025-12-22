@@ -1,0 +1,102 @@
+/* make sure your file name is must is (StudentResultSwing.java)*/
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class StudentResultSwing extends JFrame implements ActionListener {
+
+    JTextField t1, t2, t3, t4, t5, totalField, percentField;
+    JButton calcBtn, clearBtn;
+
+    StudentResultSwing() {
+
+        setTitle("Student Result Calculator");
+        setSize(400, 400);
+        setLayout(new GridLayout(9, 2, 10, 10));
+
+        // Labels and TextFields
+        add(new JLabel("Subject 1 Marks:"));
+        t1 = new JTextField();
+        add(t1);
+
+        add(new JLabel("Subject 2 Marks:"));
+        t2 = new JTextField();
+        add(t2);
+
+        add(new JLabel("Subject 3 Marks:"));
+        t3 = new JTextField();
+        add(t3);
+
+        add(new JLabel("Subject 4 Marks:"));
+        t4 = new JTextField();
+        add(t4);
+
+        add(new JLabel("Subject 5 Marks:"));
+        t5 = new JTextField();
+        add(t5);
+
+        add(new JLabel("Total Marks:"));
+        totalField = new JTextField();
+        totalField.setEditable(false);
+        add(totalField);
+
+        add(new JLabel("Percentage:"));
+        percentField = new JTextField();
+        percentField.setEditable(false);
+        add(percentField);
+
+        // Buttons
+        calcBtn = new JButton("Calculate");
+        clearBtn = new JButton("Clear");
+
+        add(calcBtn);
+        add(clearBtn);
+
+        calcBtn.addActionListener(this);
+        clearBtn.addActionListener(this);
+
+        // Close operation
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+
+        if (e.getSource() == calcBtn) {
+            try {
+                int m1 = Integer.parseInt(t1.getText());
+                int m2 = Integer.parseInt(t2.getText());
+                int m3 = Integer.parseInt(t3.getText());
+                int m4 = Integer.parseInt(t4.getText());
+                int m5 = Integer.parseInt(t5.getText());
+
+                int total = m1 + m2 + m3 + m4 + m5;
+                double percentage = total / 5.0;
+
+                totalField.setText(String.valueOf(total));
+                percentField.setText(String.format("%.2f", percentage));
+
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this,
+                        "Please enter valid numeric marks!",
+                        "Input Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+        if (e.getSource() == clearBtn) {
+            t1.setText("");
+            t2.setText("");
+            t3.setText("");
+            t4.setText("");
+            t5.setText("");
+            totalField.setText("");
+            percentField.setText("");
+        }
+    }
+
+    public static void main(String[] args) {
+        new StudentResultSwing();
+    }
+}
