@@ -1,0 +1,53 @@
+
+/* make sure your file name is must is (SimpleBankingApp.java)*/
+
+
+class JointAccount {
+
+    private int balance = 1000; // initial balance
+
+    // Deposit method
+    public synchronized void deposit(int amount) {
+        balance += amount;
+        System.out.println(Thread.currentThread().getName() + " deposited: " + amount);
+        System.out.println("Balance: " + balance);
+
+        // Notify waiting threads
+        notify();
+    }
+
+    // Withdraw method
+    public synchronized void withdraw(int amount) {
+
+        // Wait until sufficient balance is available
+        while (balance < amount) {
+            System.out.println(Thread.currentThread().getName()
+                    + " waiting to withdraw " + amount + " (Insufficient balance)");
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        balance -= amount;
+        System.out.println(Thread.currentThread().getName() + " withdrew: " + amount);
+        System.out.println("Balance: " + balance);
+    }
+}
+
+public class SimpleBankingApp {
+
+    public static void main(String[] args) {
+
+        JointAccount account = new JointAccount();
+
+        Thread t1 = new Thread(() -> account.withdraw(1500), "Person-1");
+        Thread t2 = new Thread(() -> account.deposit(1000), "Person-2");
+        Thread t3 = new Thread(() -> account.withdraw(300), "Person-3");
+
+        t1.start();
+        t2.start();
+        t3.start();
+    }
+}
