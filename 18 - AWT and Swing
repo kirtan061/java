@@ -1,0 +1,93 @@
+import java.awt.*;
+import java.awt.event.*;
+
+public class AWTMenuBarExample {
+
+    public static void main(String[] args) {
+
+        Frame frame = new Frame("AWT Menu Example");
+        frame.setSize(500, 400);
+
+        // Close window properly
+        frame.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                frame.dispose();   // or System.exit(0);
+            }
+        });
+
+        // ----------------- Create MenuBar -----------------
+        MenuBar menuBar = new MenuBar();
+
+        // ----------------- File Menu -----------------
+        Menu fileMenu = new Menu("File");
+
+        fileMenu.add(new MenuItem("New"));
+        fileMenu.add(new MenuItem("Open"));
+        fileMenu.add(new MenuItem("Close"));
+
+        fileMenu.addSeparator();
+
+        fileMenu.add(new MenuItem("Save"));
+        fileMenu.add(new MenuItem("Save As"));
+
+        fileMenu.addSeparator();
+
+        fileMenu.add(new MenuItem("Print"));
+
+        // ----------------- Edit Menu -----------------
+        Menu editMenu = new Menu("Edit");
+
+        // ----- Radio-button style items -----
+        CheckboxMenuItem lineItem = new CheckboxMenuItem("Line", true);
+        CheckboxMenuItem rectItem = new CheckboxMenuItem("Rectangle");
+        CheckboxMenuItem circleItem = new CheckboxMenuItem("Circle");
+
+        ItemListener radioListener = e -> {
+            lineItem.setState(false);
+            rectItem.setState(false);
+            circleItem.setState(false);
+            ((CheckboxMenuItem) e.getSource()).setState(true);
+        };
+
+        lineItem.addItemListener(radioListener);
+        rectItem.addItemListener(radioListener);
+        circleItem.addItemListener(radioListener);
+
+        editMenu.add(lineItem);
+        editMenu.add(rectItem);
+        editMenu.add(circleItem);
+
+        editMenu.addSeparator();
+
+        // ----- Checkbox items -----
+        CheckboxMenuItem redItem = new CheckboxMenuItem("Red");
+        CheckboxMenuItem greenItem = new CheckboxMenuItem("Green");
+        CheckboxMenuItem blueItem = new CheckboxMenuItem("Blue");
+
+        editMenu.add(redItem);
+        editMenu.add(greenItem);
+        editMenu.add(blueItem);
+
+        // ----------------- Add Menus -----------------
+        menuBar.add(fileMenu);
+        menuBar.add(editMenu);
+
+        frame.setMenuBar(menuBar);
+        frame.setVisible(true);
+    }
+}
+/*🧪 OUTPUT (What You Will See)
+
+A Frame window
+
+MenuBar with:
+
+File → New, Open, Save, Print
+
+Edit →
+
+Radio-style: Line / Rectangle / Circle
+
+Checkboxes: Red / Green / Blue
+
+Window closes properly when ❌ is clicked ✅*/
