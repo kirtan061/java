@@ -4,141 +4,41 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class StudentResultSwing extends JFrame implements ActionListener {
-
-    JTextField t1, t2, t3, t4, t5, totalField, percentField;
-    JButton calcBtn, clearBtn;
-
-    StudentResultSwing() {
-
-        setTitle("Student Result Calculator");
-        setSize(400, 400);
-        setLayout(new GridLayout(9, 2, 10, 10));
-
-        // Labels and TextFields
-        add(new JLabel("Subject 1 Marks:"));
-        t1 = new JTextField();
-        add(t1);
-
-        add(new JLabel("Subject 2 Marks:"));
-        t2 = new JTextField();
-        add(t2);
-
-        add(new JLabel("Subject 3 Marks:"));
-        t3 = new JTextField();
-        add(t3);
-
-        add(new JLabel("Subject 4 Marks:"));
-        t4 = new JTextField();
-        add(t4);
-
-        add(new JLabel("Subject 5 Marks:"));
-        t5 = new JTextField();
-        add(t5);
-
-        add(new JLabel("Total Marks:"));
-        totalField = new JTextField();
-        totalField.setEditable(false);
-        add(totalField);
-
-        add(new JLabel("Percentage:"));
-        percentField = new JTextField();
-        percentField.setEditable(false);
-        add(percentField);
-
-        // Buttons
-        calcBtn = new JButton("Calculate");
-        clearBtn = new JButton("Clear");
-
-        add(calcBtn);
-        add(clearBtn);
-
-        calcBtn.addActionListener(this);
-        clearBtn.addActionListener(this);
-
-        // Close operation
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);
-    }
-
-    public void actionPerformed(ActionEvent e) {
-
-        if (e.getSource() == calcBtn) {
-            try {
-                int m1 = Integer.parseInt(t1.getText());
-                int m2 = Integer.parseInt(t2.getText());
-                int m3 = Integer.parseInt(t3.getText());
-                int m4 = Integer.parseInt(t4.getText());
-                int m5 = Integer.parseInt(t5.getText());
-
-                int total = m1 + m2 + m3 + m4 + m5;
-                double percentage = total / 5.0;
-
-                totalField.setText(String.valueOf(total));
-                percentField.setText(String.format("%.2f", percentage));
-
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(this,
-                        "Please enter valid numeric marks!",
-                        "Input Error",
-                        JOptionPane.ERROR_MESSAGE);
-            }
-        }
-
-        if (e.getSource() == clearBtn) {
-            t1.setText("");
-            t2.setText("");
-            t3.setText("");
-            t4.setText("");
-            t5.setText("");
-            totalField.setText("");
-            percentField.setText("");
-        }
-    }
-
-    public static void main(String[] args) {
-        new StudentResultSwing();
-    }
-}
-
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-
 public class CardLayoutExample extends JFrame implements ActionListener {
 
     CardLayout card;
-    JPanel mainPanel;
+    JPanel cardPanel;
     JButton nextBtn, prevBtn;
 
     CardLayoutExample() {
 
         setTitle("CardLayout Example");
-        setSize(400, 300);
+        setSize(500, 300);
+        setLayout(new BorderLayout());
 
-        // Create CardLayout
-        card = new CardLayout();
-        mainPanel = new JPanel(card);
+        // CardLayout
+        card = new CardLayout(20, 20);
+        cardPanel = new JPanel(card);
 
-        // Create cards (panels)
+        // ----------- Cards with required values -----------
+
         JPanel card1 = new JPanel();
-        card1.add(new JLabel("This is Card 1"));
+        card1.add(new JLabel("PARUL University"));
 
         JPanel card2 = new JPanel();
-        card2.add(new JLabel("This is Card 2"));
+        card2.add(new JLabel("FITCS"));
 
         JPanel card3 = new JPanel();
-        card3.add(new JLabel("This is Card 3"));
+        card3.add(new JLabel("MCA / MScIT"));
 
-        // Add cards to main panel
-        mainPanel.add(card1, "Card1");
-        mainPanel.add(card2, "Card2");
-        mainPanel.add(card3, "Card3");
+        // Add cards
+        cardPanel.add(card1, "PARUL");
+        cardPanel.add(card2, "FITCS");
+        cardPanel.add(card3, "MCA");
 
-        // Buttons panel
+        // ----------- Control Buttons -----------
+
         JPanel buttonPanel = new JPanel();
-
         prevBtn = new JButton("Previous");
         nextBtn = new JButton("Next");
 
@@ -149,21 +49,22 @@ public class CardLayoutExample extends JFrame implements ActionListener {
         nextBtn.addActionListener(this);
 
         // Add to frame
-        add(mainPanel, BorderLayout.CENTER);
+        add(cardPanel, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }
 
+    // Button actions
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == nextBtn) {
-            card.next(mainPanel);
+            card.next(cardPanel);
         }
 
         if (e.getSource() == prevBtn) {
-            card.previous(mainPanel);
+            card.previous(cardPanel);
         }
     }
 
