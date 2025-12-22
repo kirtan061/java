@@ -1,0 +1,25 @@
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
+public class GregorianCalendarDemo {
+
+    public static void main(String[] args) {
+
+        // Create a GregorianCalendar instance with current date and time
+        GregorianCalendar calendar = new GregorianCalendar();
+
+        // Display current date and time (default locale & time zone)
+        System.out.println("Current Date and Time: " + calendar.getTime());
+
+        // Get the current year
+        int year = calendar.get(Calendar.YEAR);
+        System.out.println("Current Year: " + year);
+
+        // Check whether the current year is a leap year
+        if (calendar.isLeapYear(year)) {
+            System.out.println(year + " is a Leap Year.");
+        } else {
+            System.out.println(year + " is NOT a Leap Year.");
+        }
+    }
+}
